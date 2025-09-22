@@ -17,24 +17,32 @@ pipeline {
         stage('Deploy Frontend to Tomcat') {
             steps {
                 bat '''
-                if exist "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\SDP" (
-                    rmdir /S /Q "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\SDP"
+                set TOMCAT_DIR=C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0
+
+                :: Stop Tomcat service (optional, if running as a service)
+                net stop Tomcat9
+
+                if exist "%TOMCAT_DIR%\\webapps\\SDP" (
+                    rmdir /S /Q "%TOMCAT_DIR%\\webapps\\SDP"
                 )
-                mkdir "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\SDP"
-                xcopy /E /I /Y frontend\\artgallery\\dist\\* "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\SDP"
+                mkdir "%TOMCAT_DIR%\\webapps\\SDP"
+
+                xcopy /E /I /Y frontend\\artgallery\\dist\\* "%TOMCAT_DIR%\\webapps\\SDP"
+
+                :: Start Tomcat service again
+                net start Tomcat9
                 '''
             }
         }
 
         // ===== BACKEND BUILD =====
         stage('Build Backend') {
-    steps {
-        dir('backend/ARTBACKEND') {
-            bat '"C:\\Users\\srava\\Downloads\\apache-maven-3.9.11-bin\\apache-maven-3.9.11\\bin\\mvn.cmd" clean package'
+            steps {
+                dir('backend/ARTBACKEND') {
+                    bat '"C:\\Users\\srava\\Downloads\\apache-maven-3.9.11-bin\\apache-maven-3.9.11\\bin\\mvn.cmd" clean package'
+                }
+            }
         }
-    }
-}
-
 
         // ===== BACKEND DEPLOY =====
         stage('Deploy Backend JAR') {
