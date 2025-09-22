@@ -32,13 +32,14 @@ pipeline {
         }
 
         // ===== BACKEND BUILD (JAR) =====
-        stage('Build Backend') {
-            steps {
-                dir('backend/ARTBACKEND') {
-                    bat 'mvn clean package -DskipTests'
-                }
-            }
+      stage('Build Backend') {
+    steps {
+        dir('backend/ARTBACKEND') {
+            bat '"C:\\Users\\srava\\Downloads\\apache-maven-3.9.11-bin\\apache-maven-3.9.11\\bin\\mvn.cmd" clean package -DskipTests'
         }
+    }
+}
+
 
         // ===== BACKEND DEPLOY (JAR) =====
         stage('Deploy Backend JAR') {
