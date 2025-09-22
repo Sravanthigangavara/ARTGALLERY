@@ -26,7 +26,7 @@ pipeline {
                     rmdir /S /Q "${env.TOMCAT_WEBAPPS}\\artgallery1"
                 )
                 mkdir "${env.TOMCAT_WEBAPPS}\\artgallery1"
-                xcopy /E /I /Y "frontend\\artgallery1\\dist\\*" "${env.TOMCAT_WEBAPPS}\\artgallery1"
+                xcopy /E /I /Y "frontend\\artgallery\\dist\\*" "${env.TOMCAT_WEBAPPS}\\artgallery1"
                 """
             }
         }
@@ -54,7 +54,7 @@ pipeline {
                 )
 
                 copy "backend\\ARTBACKEND\\target\\artgalleryapp.jar" "%DEPLOY_DIR%\\artgalleryapp.jar"
-                start "" "java" -jar "%DEPLOY_DIR%\\artgalleryapp.jar"
+                start "" java -jar "%DEPLOY_DIR%\\artgalleryapp.jar"
                 """
             }
         }
