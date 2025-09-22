@@ -54,7 +54,7 @@ pipeline {
                 )
 
                 copy "backend\\ARTBACKEND\\target\\artgalleryapp.jar" "%DEPLOY_DIR%\\artgalleryapp.jar"
-                start "" java -jar "%DEPLOY_DIR%\\artgalleryapp.jar"
+                start "" "java" -jar "%DEPLOY_DIR%\\artgalleryapp.jar"
                 """
             }
         }
