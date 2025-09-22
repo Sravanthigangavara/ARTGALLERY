@@ -26,35 +26,38 @@ pipeline {
                     rmdir /S /Q "${env.TOMCAT_WEBAPPS}\\artgallery"
                 )
                 mkdir "${env.TOMCAT_WEBAPPS}\\artgallery"
-                xcopy /E /I /Y frontend\\artgallery\\dist\\* "${env.TOMCAT_WEBAPPS}\\artgallery"
+                xcopy /E /I /Y "frontend\\artgallery\\dist\\*" "${env.TOMCAT_WEBAPPS}\\artgallery"
                 """
             }
         }
 
         // ===== BACKEND BUILD (JAR) =====
-      stage('Build Backend') {
-    steps {
-        dir('backend/ARTBACKEND') {
-            bat '"C:\\Users\\srava\\Downloads\\apache-maven-3.9.11-bin\\apache-maven-3.9.11\\bin\\mvn.cmd" clean package -DskipTests'
+        stage('Build Backend') {
+            steps {
+                dir('backend/ARTBACKEND') {
+                    bat '"C:\\Users\\srava\\Downloads\\apache-maven-3.9.11-bin\\apache-maven-3.9.11\\bin\\mvn.cmd" clean package -DskipTests'
+                }
+            }
         }
-    }
-}
-
 
         // ===== BACKEND DEPLOY (JAR) =====
         stage('Deploy Backend JAR') {
             steps {
                 bat """
-                if exist %DEPLOY_DIR%\\artgalleryapp.jar (
-                    taskkill /F /IM java.exe || exit 0
-                    del /Q %DEPLOY_DIR%\\artgalleryapp.jar
+                if not exist "%DEPLOY_DIR%" (
+                    mkdir "%DEPLOY_DIR%"
                 )
-                copy backend\\ARTBACKEND\\target\\artgalleryapp.jar %DEPLOY_DIR%\\artgalleryapp.jar
-                start "" java -jar %DEPLOY_DIR%\\artgalleryapp.jar
+
+                if exist "%DEPLOY_DIR%\\artgalleryapp.jar" (
+                    taskkill /F /IM java.exe || echo No java process found
+                    del /Q "%DEPLOY_DIR%\\artgalleryapp.jar"
+                )
+
+                copy "backend\\ARTBACKEND\\target\\artgalleryapp.jar" "%DEPLOY_DIR%\\artgalleryapp.jar"
+                start "" java -jar "%DEPLOY_DIR%\\artgalleryapp.jar"
                 """
             }
         }
-
     }
 
     post {
