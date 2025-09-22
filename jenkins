@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DEPLOY_DIR = 'C:\\deploy'
-        TOMCAT_WEBAPPS = 'C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps'
+        TOMCAT_WEBAPPS = 'C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\webapps'
     }
 
     stages {
