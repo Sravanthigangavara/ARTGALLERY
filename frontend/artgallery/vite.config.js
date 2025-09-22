@@ -3,10 +3,16 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig(({ command }) => ({
   plugins: [react()],
-  base: command === 'build' ? '/artgallery/' : '/',
+  // 👇 important: set base path to match Tomcat context (SDP)
+  base: command === 'build' ? '/SDP/' : '/',
   server: {
     proxy: {
-      '/api': 'http://localhost:8081',  // Forward API calls in dev mode
-    }
-  }
+      // 👇 during `npm run dev`, requests to /api/* will go to backend
+      '/api': {
+        target: 'http://localhost:8081',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 }))
