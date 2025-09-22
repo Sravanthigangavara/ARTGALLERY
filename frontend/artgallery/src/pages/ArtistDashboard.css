@@ -1,0 +1,248 @@
+/* General Dashboard Layout */
+.artist-dashboard {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+/* Navbar */
+.navbar1 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(90deg, #457b9d, #1d3557);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
+  z-index: 100;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.navbar1 .logo {
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navbar1 .nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.navbar1 .nav-links a {
+  color: #413f3f;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.navbar1 .nav-links a:hover {
+  color: #f1faee;
+}
+
+.nav-btn {
+  background-color: beige;
+  color: #333;
+  border: none;
+  padding: 8px 16px;
+  margin-right: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none; 
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+.nav-btn:hover {
+  background-color: #333;
+  color: white;
+}
+
+.logout-btn {
+  background-color: #e53e3e;
+  
+}
+
+.logout-btn:hover {
+  background-color: #c53030;
+
+}
+
+
+/* Container for sticky form + scrollable list */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 70px); /* navbar height approx 70px */
+  padding-top: 20px;
+}
+
+/* Add Artwork Form */
+.add-art {
+  background: #ffffff;
+  width: 90%;          /* occupy 90% of viewport width */
+  max-width: none;     /* remove previous restriction */
+  margin: 0 auto;      /* center horizontally */
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0px 3px 8px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 70px;           /* sticky below navbar */
+  z-index: 10;
+}
+
+.add-art h3 {
+  margin-bottom: 15px;
+  font-size: 20px;
+  color: #1d3557;
+}
+
+.add-art input,
+.add-art textarea {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.add-art input:focus,
+.add-art textarea:focus {
+  border-color: #457b9d;
+  outline: none;
+}
+
+.add-art textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.add-art button {
+  background-color: #457b9d;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.add-art button:hover {
+  background-color: #1d3557;
+}
+
+/* Artworks List */
+.art-list {
+  background: #ffffff;
+  width: 90%;         /* occupy 90% of viewport width */
+  max-width: none;    /* remove previous restriction */
+  margin: 20px auto 0 auto; /* center horizontally with top gap */
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 3px 8px rgba(0,0,0,0.1);
+  overflow-y: auto;   /* scrollable */
+  flex: 1;            /* take remaining space */
+}
+
+.art-list h3 {
+  margin-bottom: 15px;
+  font-size: 20px;
+  color: #1d3557;
+}
+
+.art-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.art-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.art-list li:last-child {
+  border-bottom: none;
+}
+
+.art-list li img {
+  flex-shrink: 0;
+  width: 200px;
+  max-height: 180px;
+  border-radius: 8px;
+  object-fit: contain;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.08);
+}
+
+.art-list li div {
+  flex: 1;
+}
+
+.art-list li strong {
+  font-size: 18px;
+  color: #222;
+}
+
+.art-list li p {
+  margin: 5px 0;
+  line-height: 1.4;
+}
+
+.art-list li small {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  color: #666;
+}
+
+.art-list li button {
+  background-color: #e63946;
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.2s ease;
+}
+
+.art-list li button:hover {
+  background-color: #d62828;
+}
+
+/* Optional: Responsive */
+@media (max-width: 1200px) {
+  .add-art,
+  .art-list {
+    width: 95%;
+  }
+}
+
+@media (max-width: 768px) {
+  .add-art,
+  .art-list {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .art-list li {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .art-list li img {
+    width: 100%;
+    max-width: 300px;
+  }
+}

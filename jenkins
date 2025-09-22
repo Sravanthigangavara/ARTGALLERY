@@ -1,0 +1,67 @@
+pipeline {
+    agent any
+
+    environment {
+        DEPLOY_DIR = 'C:\\deploy'
+        TOMCAT_WEBAPPS = 'C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps'
+    }
+
+    stages {
+
+        // ===== FRONTEND BUILD =====
+        stage('Build Frontend') {
+            steps {
+                dir('frontend/artgallery') {
+                    bat 'npm install'
+                    bat 'npm run build'
+                }
+            }
+        }
+
+        // ===== FRONTEND DEPLOY =====
+        stage('Deploy Frontend to Tomcat') {
+            steps {
+                bat """
+                if exist "${env.TOMCAT_WEBAPPS}\\artgallery" (
+                    rmdir /S /Q "${env.TOMCAT_WEBAPPS}\\artgallery"
+                )
+                mkdir "${env.TOMCAT_WEBAPPS}\\artgallery"
+                xcopy /E /I /Y frontend\\artgallery\\dist\\* "${env.TOMCAT_WEBAPPS}\\artgallery"
+                """
+            }
+        }
+
+        // ===== BACKEND BUILD (JAR) =====
+        stage('Build Backend') {
+            steps {
+                dir('backend/ARTBACKEND') {
+                    bat 'mvn clean package -DskipTests'
+                }
+            }
+        }
+
+        // ===== BACKEND DEPLOY (JAR) =====
+        stage('Deploy Backend JAR') {
+            steps {
+                bat """
+                if exist %DEPLOY_DIR%\\artgalleryapp.jar (
+                    taskkill /F /IM java.exe || exit 0
+                    del /Q %DEPLOY_DIR%\\artgalleryapp.jar
+                )
+                copy backend\\ARTBACKEND\\target\\artgalleryapp.jar %DEPLOY_DIR%\\artgalleryapp.jar
+                start "" java -jar %DEPLOY_DIR%\\artgalleryapp.jar
+                """
+            }
+        }
+
+    }
+
+    post {
+        success {
+            echo '✅ Deployment Successful!'
+        }
+        failure {
+            echo '❌ Pipeline Failed.'
+        }
+    }
+}

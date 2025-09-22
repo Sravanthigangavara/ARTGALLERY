@@ -1,0 +1,144 @@
+/* ================== Cart Section ================== */
+.cart-section {
+  padding: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.cart-section h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #111;
+  text-align: center;
+}
+
+/* Grid for cart items */
+.cart-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+/* Card style */
+.cart-item {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.cart-item:hover {
+  transform: translateY(-4px);
+}
+
+/* Artwork image */
+.cart-item img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+/* Title and price */
+.cart-item p {
+  margin: 6px 0;
+  font-size: 15px;
+  color: #444;
+}
+
+.cart-item p strong {
+  color: #111;
+  font-size: 16px;
+}
+
+/* Buttons container */
+.btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+/* Buttons */
+.cart-item button {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+/* Buy button */
+.cart-item button.buy-btn {
+  background: #111;
+  color: #fff;
+}
+
+.cart-item button.buy-btn:hover {
+  background-color: #333;
+}
+
+/* Remove button */
+.cart-item button.remove-btn {
+  background: #f44336;
+  color: #fff;
+}
+
+.cart-item button.remove-btn:hover {
+  background-color: #d32f2f;
+}
+
+/* Empty message */
+.empty-msg {
+  text-align: center;
+  font-size: 16px;
+  color: #777;
+  margin-top: 40px;
+}
+
+/* ================== Navbar3 ================== */
+.navbar3 {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 12px 20px;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #ddd;
+  position: sticky; /* stays on top */
+  top: 0;
+  z-index: 100;
+}
+
+.navbar3 button {
+  padding: 8px 16px;
+  background-color: #111;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.navbar3 button:hover {
+  background-color: #333;
+  transform: translateY(-2px);
+}
+
+/* Responsive tweaks only for navbar */
+@media (max-width: 600px) {
+  .navbar3 {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
